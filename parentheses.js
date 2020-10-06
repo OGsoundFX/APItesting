@@ -15,17 +15,18 @@ const parenthesesChecker = require('./checker.js');
 const express = require('express'), bodyParser = require('body-parser');
 const router = express.Router();
 
+router.use(bodyParser.json());
 
 router.post('/', (req, res, next) => {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  
+  // res.setHeader('Access-Control-Allow-Origin', '*');
+
   // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  
+  // res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+
   // Request headers you wish to allow
   // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  
+
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   // res.setHeader('Access-Control-Allow-Credentials', true);
@@ -40,12 +41,11 @@ router.post('/', (req, res, next) => {
     res.status(200).json({
       "isValid": false,
       "errorDetails": {
-        "preceedingParentheses": `${parenthesesChecker(stringCheck.string.string).preceeding}`,
-        "erroneosParentheses": `${parenthesesChecker(stringCheck.string.string).erroneos}`
+          "preceedingParentheses": `${parenthesesChecker(stringCheck.string.string).preceeding}`,
+          "erroneosParentheses": `${parenthesesChecker(stringCheck.string.string).erroneos}`
       }
     });
   };
 });
-router.use(bodyParser.json());
 
 module.exports = router;
